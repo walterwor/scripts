@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+      - 4443:443
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wrollet
+      WORDPRESS_DB_PASSWORD: 0rland0_WP
+      WORDPRESS_DB_NAME: wrolletwpdb
+    volumes:
+      #- wordpress:/var/www/html
+      - /home/admin/wp/wordpress:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wrolletwpdb
+      MYSQL_USER: wrollet
+      MYSQL_PASSWORD: 0rland0_WP
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      #- db:/var/lib/mysql
+      - /home/admin/wp/db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+
